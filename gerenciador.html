@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador</title>
+    <link rel="stylesheet" href="assets/css/styleg.css">
+</head>
+
+<body>
+
+        <div id="cont_header">
+            <h1>Gerenciador de Lucros e atendimentos</h1>
+        </div>
+
+    <main id="container">
+        
+        <br>
+        <div id="secao-gerenciador">
+
+                <div id="cadastrar-atendimento">
+                    <h2>Cadastrar atendimento</h2>
+                <div class="inputs">
+
+                <br> 
+
+                    <div class="input_box">
+                        <label for="tipo">Data do atendimento
+
+                            <div class="input_field">
+
+                            <input type="date" id="data">
+
+                            </div>
+
+                        </label>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="tipo">Valor do atendimento
+
+                            <div class="input_field">
+
+                            <input type="number" id="vlr" placeholder="Valor do atendimento">
+
+                            </div>
+
+                        </label>
+                    </div>
+
+                    <div class="input_box">
+                        <label for="tipo">Tipo de atendimento
+
+                            <div class="input_fieldS">
+
+                            <select name="tipo" id="tipo">
+                                <option value="">Selecione um tipo de atendimento</option>
+                                <option value="Unhas">Unhas</option>            
+                                <option value="Cílios">Cílios</option>
+                                <option value="Pés e Mãos">Pés e Mãos</option>            
+                                <option value="Sobrancelhas">Sobrancelhas</option>            
+                                <option value="Spa dos pés">Spa dos pés</option>                                
+                            </select>
+
+                            </div>
+
+                        </label>
+                    </div>
+
+                    
+
+
+                </div>
+
+                <button type="submit" id="button-cadastro" onClick="cadastrar()">Cadastrar Atendimento</button>
+            
+            </div>
+
+            
+
+
+            <script>
+
+            let atendimentos = JSON.parse(localStorage.getItem('atendimentos')) || []; 
+
+
+            function cadastrar() {
+            let vlr = document.getElementById('vlr').value;
+            let data = document.getElementById('data').value;
+            let tipo = document.getElementById('tipo').value;
+
+            // Se os campos estiverem vazios, exibir alerta
+
+            if (vlr === "" || data === "" || tipo === "") {
+                alert('Por favor preencha todos os campos!');
+                return;
+            }
+
+            // Armazenar dados no LocalStorage
+
+            localStorage.setItem('vlr', vlr);
+            localStorage.setItem('data', data);
+            localStorage.setItem('tipo', tipo);
+
+            // Declarar um array para armazenar as tarefas
+
+            let novoAtendimento = {
+                vlr: vlr,
+                data: data,
+                tipo: tipo
+            }
+
+            // Chama com o push para chamar a função de adicionar a tarefa na lista e depois exibir a tarefa
+
+            atendimentos.push(novoAtendimento);
+            localStorage.setItem('atendimentos', JSON.stringify(atendimentos));
+
+            // Limpa os campos para uma nova inserção de dados
+
+            document.getElementById('vlr').value = "";
+            document.getElementById('data').value = "";
+            document.getElementById('tipo').value = "";
+
+            alert('Atendimento adicionado!');
+
+            // chama a função para exibir a tarefa na lista
+
+            carregarAtendimentos();
+        }
+
+        function carregarAtendimentos() {
+
+            const atendimentos =JSON.parse(localStorage.getItem('atendimentos')) || []; 
+
+            const tabela = document.getElementById('corpo-tabela-at');
+
+            tabela.innerHTML = '';
+
+            atendimentos.forEach(atendimento => {
+
+            const linha = document.createElement('tr');
+                tabela.innerHTML += `<tr>
+                    <td> ${atendimento.data} </td>
+                    <td>  R$ ${atendimento.vlr} </td>
+                    <td>  ${atendimento.tipo} </td>
+                    </tr>
+                    `
+                    
+                    tabela.appendChild(linha);
+            })
+        }
+
+        window.onload = carregarAtendimentos;
+            </script>
+
+        <div id="mostrar-atendimento">
+                <h2>Atendimentos</h2>
+                <div id="lista-atendimentos">
+                    <table id="tabela-atendimentos">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th>Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela-at">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3><a href="index.html">Voltar a tela de login</a></h3>
+        </div>
+    </main>
+</body>
+
+</html>
