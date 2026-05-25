@@ -103,7 +103,7 @@
             localStorage.setItem('data', data);
             localStorage.setItem('tipo', tipo);
 
-            // Declarar um array para armazenar as tarefas
+            // Declarar um array 
 
             let novoAtendimento = {
                 vlr: vlr,
@@ -111,7 +111,7 @@
                 tipo: tipo
             }
 
-            // Chama com o push para chamar a função de adicionar a tarefa na lista e depois exibir a tarefa
+            // Chama com o push para chamar a função de adicionar 
 
             atendimentos.push(novoAtendimento);
             localStorage.setItem('atendimentos', JSON.stringify(atendimentos));
@@ -124,7 +124,7 @@
 
             alert('Atendimento adicionado!');
 
-            // chama a função para exibir a tarefa na lista
+            // chama a função 
 
             carregarAtendimentos();
         }
